@@ -1,9 +1,10 @@
 $(document).ready(function () {
 
 	// ----- Variables -----
+
 	var correct = 0;
 	var wrong = 0;
-	var time = 20;
+	var time = 15;
 	var outOfTime = 0;
 	var qNum = 0;
 
@@ -12,12 +13,13 @@ $(document).ready(function () {
 	clearInterval(timer);
 	var resetHtml = $(".container").html();
 	$(".container").html(resetHtml);
+	$(".stats").hide();
 
 
 	// ----- Objects -----
 
 	var Q1 = {
-		question: "question",
+		question: "question1",
 		choice1: "choice1",
 		choice2: "choice2",
 		choice3: "choice3",
@@ -27,8 +29,8 @@ $(document).ready(function () {
 	}
 
 	var Q2 = {
-		question: "question",
-		choice1: "choice12",
+		question: "question2",
+		choice1: "choice1",
 		choice2: "choice2",
 		choice3: "choice3",
 		choice4: "choice4",
@@ -37,7 +39,7 @@ $(document).ready(function () {
 	}
 
 	var Q3 = {
-		question: "question",
+		question: "question3",
 		choice1: "choice1",
 		choice2: "choice2",
 		choice3: "choice3",
@@ -47,7 +49,7 @@ $(document).ready(function () {
 	}
 
 	var Q4 = {
-		question: "question",
+		question: "question4",
 		choice1: "choice1",
 		choice2: "choice2",
 		choice3: "choice3",
@@ -57,7 +59,7 @@ $(document).ready(function () {
 	}
 
 	var Q5 = {
-		question: "question",
+		question: "question5",
 		choice1: "choice1",
 		choice2: "choice2",
 		choice3: "choice3",
@@ -67,7 +69,7 @@ $(document).ready(function () {
 	}
 
 	var Q6 = {
-		question: "question",
+		question: "question6",
 		choice1: "choice1",
 		choice2: "choice2",
 		choice3: "choice3",
@@ -77,7 +79,7 @@ $(document).ready(function () {
 	}
 
 	var Q7 = {
-		question: "question",
+		question: "question7",
 		choice1: "choice1",
 		choice2: "choice2",
 		choice3: "choice3",
@@ -87,7 +89,7 @@ $(document).ready(function () {
 	}
 
 	var Q8 = {
-		question: "question",
+		question: "question8",
 		choice1: "choice1",
 		choice2: "choice2",
 		choice3: "choice3",
@@ -105,7 +107,7 @@ $(document).ready(function () {
 	// Question rotation 
 
 	function newQuestion () {
-		time = 20;
+		time = 15;
 		timer = setInterval(countdown, 1000);
 		$("#timer").show();
 		$("#timer").html("<h3 id='timer'>Time Left: " + time + "</h3>");
@@ -133,10 +135,10 @@ $(document).ready(function () {
 		clearInterval(timer);
 		qNum++;
 		if (qNum === questions.length) {
-			setTimeout(gameOver, 2500);
+			setTimeout(gameOver, 4000);
 		}
 		else {
-			setTimeout(newQuestion, 2500);
+			setTimeout(newQuestion, 4000);
 		}
 	}
 
@@ -144,36 +146,46 @@ $(document).ready(function () {
 
 	function timesUp () {
 		outOfTime++;
+		$("#gif").html("<img src='https://media.giphy.com/media/HQRgg6ks7nkyY/giphy.gif'>");
+		$("#gif").show();
 		$("#question").html("<h3 id='question'>Time's up! The correct answer was: " + questions[qNum].answer + "</h3>");
+		setTimeout(noGif, 4000);
 	}
 
 	// Correct answer function
 
 	function correctGuess () {
 		correct++;
+		$("#gif").html("<img src='https://media.giphy.com/media/3oEduKVQdG4c0JVPSo/giphy.gif'>");
+		$("#gif").show();
 		$("#timer").html("<h3 id='timer'>Correct!!!</h3>");
+		setTimeout(noGif, 4000);
 	}
 
 	// Wrong answer function
 
 	function wrongGuess () {
 		wrong++;
+		$("#gif").html("<img src='https://media.giphy.com/media/sPqwGBxaMXfpe/giphy.gif'>");
+		$("#gif").show();
 		$("#timer").html("<h3 id='timer'>WRONG!!!</h3>");
 		$("#question").html("<h3 id='question'>The correct answer was: " + questions[qNum].answer + "</h3>");
+		setTimeout(noGif, 4000);
 	}
 
 	// Game over, tally stats (maybe display something depending on how many correct they got)
 
 	function gameOver () {
+		$(".stats").show();
+		$("#gif").html("<img src='https://media.giphy.com/media/O2kFK6fdz217a/giphy.gif'>");
+		$("#gif").show();
 		$("#question").html("<h3 id='question'>Thanks for Playing!</h3>");
 		$("#correct").html("<h3 id='correct'>Correct: " + correct + "</h3>")
 		$("#wrong").html("<h3 id='wrong'>Wrong: " + wrong + "</h3>");
 		$("#timesUp").html("<h3 id='timesUp'>Ran out of Time: " + outOfTime + "</h3>");
 		clearInterval(timer);
 		$("#timer").hide();
-		setTimeout(function() {
-			restart(); 
-		}, 5000);
+		setTimeout(restart, 5000);
 	}
 
 	// Restart game function 
@@ -181,11 +193,17 @@ $(document).ready(function () {
 	function restart () {
 		correct = 0;
 		wrong = 0;
-		time = 20;
+		time = 15;
 		outOfTime = 0;
 		qNum = 0;
 		$("#startGame").show();
 		$("#startGame").text("New Game");
+	}
+
+	// Remove gif 
+
+	function noGif () {
+		$("#gif").empty();
 	}
 
 	// ----- Events -----
@@ -194,6 +212,8 @@ $(document).ready(function () {
 
 	$("#startGame").on("click", function () {
 		$(this).hide();
+		$(".stats").hide();
+		noGif();
 		newQuestion();
 	});
 
