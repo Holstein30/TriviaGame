@@ -1,3 +1,78 @@
 body {
+	background-image: url('../images/masters-background.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
 	text-align: center;
+	color: #fff;
+	margin: 20px auto;
+	font-family: 'Noto Sans', sans-serif;
+}
+
+.titlePage {
+	margin-top: 100px;
+}
+
+h1, #startGame, #timer, #question, .answers, .stats {
+	font-weight: 600;
+}
+
+h1 {
+	font-size: 75px;
+}
+
+#startGame {
+	font-size: 50px;
+	margin-top: 50px;
+	background: none;
+	border: none;
+	color: #fff;
+}
+
+#startGame:hover, .answers:hover {
+	color: #006400;
+}
+
+#timer {
+	margin-top: 50px;
+	font-size: 40px;
+}
+
+#question {
+	font-size: 35px;
+	margin: 50px auto;
+}
+
+.answers {
+	font-size: 30px;
+	margin-bottom: 50px;
+}
+
+img {
+	margin: 10px auto;
+	text-align: center;
+	width: 500px;
+	height: auto;
+}
+
+.stats {
+	font-size: 35px;
+	margin: 50px auto;
+}
+
+/*For hiding and unhiding*/
+
+.hidden{
+    display: none;
+}
+
+.unhidden{
+    display: show;
+}
+
+/*Media Queries*/
+
+@media screen and (max-width: 525px) {
+	img {
+		width: 80%;
+	}
 }

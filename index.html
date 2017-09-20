@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Trivia Game</title>
+	<title>Golf Trivia</title>
 
   	<meta charset="UTF-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
  	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-  	<link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
 
   	<!-- Javascript -->
 	<script type="text/javascript" src="assets/javascript/app.js"></script>
@@ -21,49 +21,49 @@
 <!-- Main container -->
 <div class="container">
 	<!-- Row for title -->
-	<div class="row">
-		<div class="col-12">
-			<h1>TRIVIA</h1>
-			<button id="startGame">Press to Start</button>
+	<div class="row hide unhidden">
+		<div class="col-12 titlePage">
+			<h1>GOLF TRIVIA</h1>
+			<button id="startGame">Start</button>
 		</div>
 	</div>
 	<!-- Time remaining -->
-	<div class="row">
+	<div class="row hide hidden">
 		<div class="col-12">
 			<h3 id="timer">Time Left:</h3>
 		</div>
 	</div>
 	<!-- Questions -->
-	<div class="row questions">
+	<div class="row questions hide hidden">
 		<div class="col-12">
 			<h3 id="question">Question</h3>
 		</div>
 	</div>
 	<!-- Answers -->
-	<div class="row">
-		<div class="col-6">
+	<div class="row hide hidden">
+		<div class="col-sm-12 col-md-6">
 			<h3 class="answers" id="answer1">Answer1</h3>
 		</div>
-		<div class="col-6">
+		<div class="col-sm-12 col-md-6">
 			<h3 class="answers" id="answer2">Answer2</h3>
 		</div>
-		<div class="col-6">
+		<div class="col-sm-12 col-md-6">
 			<h3 class="answers" id="answer3">Answer3</h3>
 		</div>
-		<div class="col-6">
+		<div class="col-sm-12 col-md-6">
 			<h3 class="answers" id="answer4">Answer4</h3>
 		</div>
 	</div>
 	<!-- Wins/Losses/Ran out of time -->
 	<div class="row stats">
-		<div class="col-4">
+		<div class="col-sm-12 col-md-4">
 			<h3 id="correct">Correct: </h3>
 		</div>
-		<div class="col-4">
+		<div class="col-sm-12 col-md-4">
 			<h3 id="wrong">Wrong: </h3>
 		</div>
-		<div class="col-4">
-			<h3 id="timesUp">Ran out of Time: </h3>
+		<div class="col-sm-12 col-md-4">
+			<h3 id="timesUp">Out of Time: </h3>
 		</div>
 	</div>
 	<!-- Gifs for correct/wrong -->

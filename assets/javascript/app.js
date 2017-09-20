@@ -7,6 +7,13 @@ $(document).ready(function () {
 	var time = 15;
 	var outOfTime = 0;
 	var qNum = 0;
+	var clockrunning = false;
+
+	// sounds
+	var swing = new Audio();
+	var cinderella = new Audio();
+	var inthehole = new Audio();
+	var fore = new Audio();
 
 	// HTML & Interval reset/clear for after game ends
 
@@ -19,82 +26,83 @@ $(document).ready(function () {
 	// ----- Objects -----
 
 	var Q1 = {
-		question: "question1",
-		choice1: "choice1",
-		choice2: "choice2",
-		choice3: "choice3",
-		choice4: "choice4",
-		answer: "choice1",
+		question: "What percentage of golfers achieve a handicap under 18?",
+		choice1: "80",
+		choice2: "30",
+		choice3: "50",
+		choice4: "20",
+		answer: "20",
 		img: "#"
 	}
 
 	var Q2 = {
-		question: "question2",
-		choice1: "choice1",
-		choice2: "choice2",
-		choice3: "choice3",
-		choice4: "choice4",
-		answer: "choice1",
+		question: "How many balls are hit into the water each year on number 17 at TPC Sawgrass?",
+		choice1: "1,000",
+		choice2: "125,000",
+		choice3: "75,000",
+		choice4: "10,000",
+		answer: "125,000",
 		img: "#"
 	}
 
 	var Q3 = {
-		question: "question3",
-		choice1: "choice1",
-		choice2: "choice2",
-		choice3: "choice3",
-		choice4: "choice4",
-		answer: "choice1",
+		question: "Who holds the record of winning The Open (British Open) Championship 6 times?",
+		choice1: "Harry Vardon",
+		choice2: "Tom Watson",
+		choice3: "Jack Nicklaus",
+		choice4: "Tiger Woods",
+		answer: "Harry Vardon",
 		img: "#"
 	}
 
 	var Q4 = {
-		question: "question4",
-		choice1: "choice1",
-		choice2: "choice2",
-		choice3: "choice3",
-		choice4: "choice4",
-		answer: "choice1",
+		question: "How many dimples does a regulation golf ball have?",
+		choice1: "222",
+		choice2: "147",
+		choice3: "336",
+		choice4: "473",
+		answer: "336",
 		img: "#"
 	}
 
 	var Q5 = {
-		question: "question5",
-		choice1: "choice1",
-		choice2: "choice2",
-		choice3: "choice3",
-		choice4: "choice4",
-		answer: "choice1",
+		question: "In what year was St. Andrews Golf Course established?",
+		choice1: "1477",
+		choice2: "1742",
+		choice3: "1552",
+		choice4: "1815",
+		answer: "1552",
 		img: "#"
 	}
 
 	var Q6 = {
-		question: "question6",
-		choice1: "choice1",
-		choice2: "choice2",
-		choice3: "choice3",
-		choice4: "choice4",
-		answer: "choice1",
+		question: "Which country offers hole-in-one insurance?",
+		choice1: "Japan",
+		choice2: "South Korea",
+		choice3: "Sweden",
+		choice4: "Britain",
+		answer: "Japan",
 		img: "#"
 	}
 
 	var Q7 = {
-		question: "question7",
-		choice1: "choice1",
-		choice2: "choice2",
-		choice3: "choice3",
-		choice4: "choice4",
-		answer: "choice1",
+		question: "Tiger Woods was 126 under par in the majors between 1997-2008. Joe Ogilvie \
+		was the next best during that span with what score?",
+		choice1: "85 under par",
+		choice2: "Even par",
+		choice3: "10 over par",
+		choice4: "63 over par",
+		answer: "63 over par",
 		img: "#"
 	}
 
 	var Q8 = {
-		question: "question8",
-		choice1: "choice1",
-		choice2: "choice2",
-		choice3: "choice3",
-		choice4: "choice4",
-		answer: "choice1",
+		question: "What is the maximum number of clubs you are allowed to carry in your golf bag?",
+		choice1: "10",
+		choice2: "12",
+		choice3: "14",
+		choice4: "15",
+		answer: "14",
 		img: "#"
 	}
 
@@ -104,18 +112,28 @@ $(document).ready(function () {
 
 	// ----- FUNCTIONS -----
 
+	// Hide toggle
+
+	function hideToggle () {
+		$('.hide').toggleClass('unhidden hidden');
+	}
+
 	// Question rotation 
 
 	function newQuestion () {
-		time = 15;
-		timer = setInterval(countdown, 1000);
-		$("#timer").show();
-		$("#timer").html("<h3 id='timer'>Time Left: " + time + "</h3>");
-		$("#question").html("<h3 id='question'>" + questions[qNum].question + "</h3>");
-		$("#answer1").html(questions[qNum].choice1);
-		$("#answer2").html(questions[qNum].choice2);
-		$("#answer3").html(questions[qNum].choice3);
-		$("#answer4").html(questions[qNum].choice4);
+		if (!clockrunning) {
+			time = 15;
+			timer = setInterval(countdown, 1000);
+			$("#timer").show();
+			$("#timer").html("<h3 id='timer'>Time Left: " + time + "</h3>");
+			$("#question").html("<h3 id='question'>" + questions[qNum].question + "</h3>");
+			$("#answer1").html(questions[qNum].choice1);
+			$("#answer2").html(questions[qNum].choice2);
+			$("#answer3").html(questions[qNum].choice3);
+			$("#answer4").html(questions[qNum].choice4);
+			$(".answers").show();
+			clockrunning = true;
+		}
 	}
 
 	// Timer countdown (maybe warning at 5-10 seconds left)
@@ -133,6 +151,7 @@ $(document).ready(function () {
 
 	function checkGame () {
 		clearInterval(timer);
+		clockrunning = false;
 		qNum++;
 		if (qNum === questions.length) {
 			setTimeout(gameOver, 4000);
@@ -147,8 +166,9 @@ $(document).ready(function () {
 	function timesUp () {
 		outOfTime++;
 		$("#gif").html("<img src='https://media.giphy.com/media/HQRgg6ks7nkyY/giphy.gif'>");
+		$(".answers").hide();
 		$("#gif").show();
-		$("#question").html("<h3 id='question'>Time's up! The correct answer was: " + questions[qNum].answer + "</h3>");
+		$("#question").html("<h3 id='question'>Time's up! Correct Answer: " + questions[qNum].answer + "</h3>");
 		setTimeout(noGif, 4000);
 	}
 
@@ -157,6 +177,7 @@ $(document).ready(function () {
 	function correctGuess () {
 		correct++;
 		$("#gif").html("<img src='https://media.giphy.com/media/3oEduKVQdG4c0JVPSo/giphy.gif'>");
+		$(".answers").hide();
 		$("#gif").show();
 		$("#timer").html("<h3 id='timer'>Correct!!!</h3>");
 		setTimeout(noGif, 4000);
@@ -167,9 +188,10 @@ $(document).ready(function () {
 	function wrongGuess () {
 		wrong++;
 		$("#gif").html("<img src='https://media.giphy.com/media/sPqwGBxaMXfpe/giphy.gif'>");
+		$(".answers").hide();
 		$("#gif").show();
 		$("#timer").html("<h3 id='timer'>WRONG!!!</h3>");
-		$("#question").html("<h3 id='question'>The correct answer was: " + questions[qNum].answer + "</h3>");
+		$("#question").html("<h3 id='question'>Correct Answer: " + questions[qNum].answer + "</h3>");
 		setTimeout(noGif, 4000);
 	}
 
@@ -178,6 +200,7 @@ $(document).ready(function () {
 	function gameOver () {
 		$(".stats").show();
 		$("#gif").html("<img src='https://media.giphy.com/media/O2kFK6fdz217a/giphy.gif'>");
+		$(".answers").hide();
 		$("#gif").show();
 		$("#question").html("<h3 id='question'>Thanks for Playing!</h3>");
 		$("#correct").html("<h3 id='correct'>Correct: " + correct + "</h3>")
@@ -185,7 +208,7 @@ $(document).ready(function () {
 		$("#timesUp").html("<h3 id='timesUp'>Ran out of Time: " + outOfTime + "</h3>");
 		clearInterval(timer);
 		$("#timer").hide();
-		setTimeout(restart, 5000);
+		setTimeout(restart, 10000);
 	}
 
 	// Restart game function 
@@ -196,8 +219,11 @@ $(document).ready(function () {
 		time = 15;
 		outOfTime = 0;
 		qNum = 0;
+		hideToggle();
+		$("#gif").hide();
+		$(".stats").hide();
 		$("#startGame").show();
-		$("#startGame").text("New Game");
+		$("#startGame").text("Play Again");
 	}
 
 	// Remove gif 
@@ -211,7 +237,7 @@ $(document).ready(function () {
 	// Event for start button 
 
 	$("#startGame").on("click", function () {
-		$(this).hide();
+		hideToggle();
 		$(".stats").hide();
 		noGif();
 		newQuestion();
