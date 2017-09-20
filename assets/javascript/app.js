@@ -10,10 +10,12 @@ $(document).ready(function () {
 	var clockrunning = false;
 
 	// sounds
-	var swing = new Audio();
-	var cinderella = new Audio();
-	var inthehole = new Audio();
-	var fore = new Audio();
+	var swing = new Audio("../sounds/golfswing.mp3");
+	var whacker = new Audio("../sounds/whacker.mp3");
+	var inthehole = new Audio("../sounds/inthehole.mp3");
+	var turds = new Audio("../sounds/2turds.mp3");
+	var waiting = new Audio("../sounds/waiting.mp3");
+	var drugs = new Audio("../sounds/takedrugs.mp3");
 
 	// HTML & Interval reset/clear for after game ends
 
@@ -31,8 +33,7 @@ $(document).ready(function () {
 		choice2: "30",
 		choice3: "50",
 		choice4: "20",
-		answer: "20",
-		img: "#"
+		answer: "20"
 	}
 
 	var Q2 = {
@@ -41,8 +42,7 @@ $(document).ready(function () {
 		choice2: "125,000",
 		choice3: "75,000",
 		choice4: "10,000",
-		answer: "125,000",
-		img: "#"
+		answer: "125,000"
 	}
 
 	var Q3 = {
@@ -51,8 +51,7 @@ $(document).ready(function () {
 		choice2: "Tom Watson",
 		choice3: "Jack Nicklaus",
 		choice4: "Tiger Woods",
-		answer: "Harry Vardon",
-		img: "#"
+		answer: "Harry Vardon"
 	}
 
 	var Q4 = {
@@ -61,8 +60,7 @@ $(document).ready(function () {
 		choice2: "147",
 		choice3: "336",
 		choice4: "473",
-		answer: "336",
-		img: "#"
+		answer: "336"
 	}
 
 	var Q5 = {
@@ -71,8 +69,7 @@ $(document).ready(function () {
 		choice2: "1742",
 		choice3: "1552",
 		choice4: "1815",
-		answer: "1552",
-		img: "#"
+		answer: "1552"
 	}
 
 	var Q6 = {
@@ -81,8 +78,7 @@ $(document).ready(function () {
 		choice2: "South Korea",
 		choice3: "Sweden",
 		choice4: "Britain",
-		answer: "Japan",
-		img: "#"
+		answer: "Japan"
 	}
 
 	var Q7 = {
@@ -92,8 +88,7 @@ $(document).ready(function () {
 		choice2: "Even par",
 		choice3: "10 over par",
 		choice4: "63 over par",
-		answer: "63 over par",
-		img: "#"
+		answer: "63 over par"
 	}
 
 	var Q8 = {
@@ -102,8 +97,7 @@ $(document).ready(function () {
 		choice2: "12",
 		choice3: "14",
 		choice4: "15",
-		answer: "14",
-		img: "#"
+		answer: "14"
 	}
 
 	// Array to hold objects
@@ -168,6 +162,7 @@ $(document).ready(function () {
 		$("#gif").html("<img src='https://media.giphy.com/media/HQRgg6ks7nkyY/giphy.gif'>");
 		$(".answers").hide();
 		$("#gif").show();
+		waiting.play();
 		$("#question").html("<h3 id='question'>Time's up! Correct Answer: " + questions[qNum].answer + "</h3>");
 		setTimeout(noGif, 4000);
 	}
@@ -179,6 +174,7 @@ $(document).ready(function () {
 		$("#gif").html("<img src='https://media.giphy.com/media/3oEduKVQdG4c0JVPSo/giphy.gif'>");
 		$(".answers").hide();
 		$("#gif").show();
+		inthehole.play();
 		$("#timer").html("<h3 id='timer'>Correct!!!</h3>");
 		setTimeout(noGif, 4000);
 	}
@@ -190,6 +186,7 @@ $(document).ready(function () {
 		$("#gif").html("<img src='https://media.giphy.com/media/sPqwGBxaMXfpe/giphy.gif'>");
 		$(".answers").hide();
 		$("#gif").show();
+		turds.play();
 		$("#timer").html("<h3 id='timer'>WRONG!!!</h3>");
 		$("#question").html("<h3 id='question'>Correct Answer: " + questions[qNum].answer + "</h3>");
 		setTimeout(noGif, 4000);
@@ -199,7 +196,14 @@ $(document).ready(function () {
 
 	function gameOver () {
 		$(".stats").show();
-		$("#gif").html("<img src='https://media.giphy.com/media/O2kFK6fdz217a/giphy.gif'>");
+		if (correct >= 5) {
+			$("#gif").html("<img src='https://media.giphy.com/media/3ohA2GnDgeDgRnTYac/giphy.gif'>");
+			whacker.play();
+		}
+		else {
+			$("#gif").html("<img src='https://media.giphy.com/media/xTiTnkWFuC4slkuUPm/giphy.gif'>");
+			drugs.play();
+		}
 		$(".answers").hide();
 		$("#gif").show();
 		$("#question").html("<h3 id='question'>Thanks for Playing!</h3>");
