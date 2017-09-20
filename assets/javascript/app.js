@@ -10,12 +10,12 @@ $(document).ready(function () {
 	var clockrunning = false;
 
 	// sounds
-	var swing = new Audio("../sounds/golfswing.mp3");
-	var whacker = new Audio("../sounds/whacker.mp3");
-	var inthehole = new Audio("../sounds/inthehole.mp3");
-	var turds = new Audio("../sounds/2turds.mp3");
-	var waiting = new Audio("../sounds/waiting.mp3");
-	var drugs = new Audio("../sounds/takedrugs.mp3");
+	var swing = new Audio("assets/sounds/golfswing.mp3");
+	var whacker = new Audio("assets/sounds/whacker.mp3");
+	var inthehole = new Audio("assets/sounds/inthehole.mp3");
+	var turds = new Audio("assets/sounds/2turds.mp3");
+	var waiting = new Audio("assets/sounds/waiting.mp3");
+	var drugs = new Audio("assets/sounds/takedrugs.mp3");
 
 	// HTML & Interval reset/clear for after game ends
 
@@ -243,6 +243,7 @@ $(document).ready(function () {
 	$("#startGame").on("click", function () {
 		hideToggle();
 		$(".stats").hide();
+		swing.play();
 		noGif();
 		newQuestion();
 	});
